@@ -2,6 +2,7 @@
 const commando = require('discord.js-commando');
 const { MessageEmbed } = require('discord.js');
 const food = [':sushi:', ':green_apple:', ':apple:', ':pizza:', ':bagel:', ':fries:', ':hamburger:', ':eggplant:', ':cherries:', ':peach:', ':grapes:', ':taco:', ':turtle:' ];
+const guildProfile = require('../../schemas/guild-schema');
 
 module.exports = class FeedCommand extends commando.Command {
 	constructor(client) {
@@ -27,6 +28,11 @@ module.exports = class FeedCommand extends commando.Command {
 		});
 	}
 	async run(message, { user }) {
+		const guildBlacklistCheck = await guildProfile.findOne({ guildId: message.guild.id });
+		if(guildBlacklistCheck.guildBlacklisted === true) {
+			message.reply('This guild has been blacklisted');
+			return;
+		}
 
 		console.log(user.username);
 		const foodItem = food[Math.floor(Math.random() * food.length)];

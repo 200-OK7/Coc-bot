@@ -1,5 +1,6 @@
 const commando = require('discord.js-commando');
 const fetch = require('node-fetch');
+const guildProfile = require('../../schemas/guild-schema');
 
 module.exports = class InsultCommand extends commando.Command {
 	constructor(client) {
@@ -24,6 +25,12 @@ module.exports = class InsultCommand extends commando.Command {
 	}
 
 	async run(msg, { user }) {
+		const guildBlacklistCheck = await guildProfile.findOne({ guildId: msg.guild.id });
+		if(guildBlacklistCheck.guildBlacklisted === true) {
+			msg.reply('This guild has been blacklisted');
+			return;
+		}
+
 		const { insult } = await fetch('https://evilinsult.com/generate_insult.php?lang=en&type=json').then(response => response.json());
 
 		msg.channel.send(`${user}. ${insult}`);
