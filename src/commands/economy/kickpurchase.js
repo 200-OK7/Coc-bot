@@ -1,6 +1,7 @@
 const commando = require('discord.js-commando');
 const { prefix } = require('../../../config.json');
 const profile = require('../../schemas/profile-schema');
+const guildProfile = require('../../schemas/guild-schema');
 const blacklisted = require('../../utils/blacklistcheck');
 
 module.exports = class PurchaseKickCommand extends commando.Command {
@@ -26,6 +27,12 @@ module.exports = class PurchaseKickCommand extends commando.Command {
 		});
 	}
 	async run(message, { user }) {
+		const guildBlacklistCheck = await guildProfile.findOne({ guildId: message.guild.id });
+		if(guildBlacklistCheck.guildBlacklisted === true) {
+			message.reply('This guild has been blacklisted');
+			return;
+		}
+
 		const profileExistanceCheck = await profile.find({ userID: user.id });
 
 		if (!profileExistanceCheck.length) {

@@ -1,5 +1,6 @@
 const commando = require('discord.js-commando');
 const { MessageEmbed } = require('discord.js');
+const guildProfile = require('../../schemas/guild-schema');
 
 module.exports = class AvatarCommand extends commando.Command {
 	constructor(client) {
@@ -28,6 +29,12 @@ module.exports = class AvatarCommand extends commando.Command {
 	}
 
 	async run(message, { user }) {
+		const guildBlacklistCheck = await guildProfile.findOne({ guildId: message.guild.id });
+		if(guildBlacklistCheck.guildBlacklisted === true) {
+			message.reply('This guild has been blacklisted');
+			return;
+		}
+
 		if (!user) {
 			user = message.author;
 		}

@@ -1,4 +1,5 @@
 const commando = require('discord.js-commando');
+const guildProfile = require('../../schemas/guild-schema');
 const querystring = require('querystring');
 const fetch = require('node-fetch');
 const { MessageEmbed } = require('discord.js');
@@ -22,6 +23,12 @@ module.exports = class UrbanDictionaryCommand extends commando.Command {
 	}
 
 	async run(message, args) {
+		const guildBlacklistCheck = await guildProfile.findOne({ guildId: message.guild.id });
+		if(guildBlacklistCheck.guildBlacklisted === true) {
+			message.reply('This guild has been blacklisted');
+			return;
+		}
+
 		const query = querystring.stringify({ term: args });
 
 		if (!args.length) {

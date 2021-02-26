@@ -1,5 +1,6 @@
 /* eslint-disable no-shadow */
 const commando = require('discord.js-commando');
+const guildProfile = require('../../schemas/guild-schema');
 
 module.exports = class RemoveRoleCommand extends commando.Command {
 	constructor(client) {
@@ -21,6 +22,12 @@ module.exports = class RemoveRoleCommand extends commando.Command {
 		});
 	}
 	async run(message, args) {
+		const guildBlacklistCheck = await guildProfile.findOne({ guildId: message.guild.id });
+		if(guildBlacklistCheck.guildBlacklisted === true) {
+			message.reply('This guild has been blacklisted');
+			return;
+		}
+
 		const targetUser = message.mentions.users.first();
 
 

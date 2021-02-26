@@ -1,5 +1,6 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
 const profile = require('../../schemas/profile-schema');
+const guildProfile = require('../../schemas/guild-schema');
 const commando = require('discord.js-commando');
 const Chance = require('chance');
 const { prefix } = require('../../../config.json');
@@ -27,6 +28,12 @@ module.exports = class JackpotCommand extends commando.Command {
 		});
 	}
 	async run(message) {
+		const guildBlacklistCheck = await guildProfile.findOne({ guildId: message.guild.id });
+		if(guildBlacklistCheck.guildBlacklisted === true) {
+			message.reply('This guild has been blacklisted');
+			return;
+		}
+
 		const jackpot = chance.bool({ likelihood: 0.01 });
 
 		console.log(`Command: Jackpot was run by ${message.author.username} returning ${jackpot}`);

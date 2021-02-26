@@ -1,4 +1,5 @@
 const commando = require('discord.js-commando');
+const guildProfile = require('../../schemas/guild-schema');
 
 module.exports = class KickCommand extends commando.Command {
 	constructor(client) {
@@ -19,6 +20,12 @@ module.exports = class KickCommand extends commando.Command {
 	}
 
 	async run(message) {
+		const guildBlacklistCheck = await guildProfile.findOne({ guildId: message.guild.id });
+		if(guildBlacklistCheck.guildBlacklisted === true) {
+			message.reply('This guild has been blacklisted');
+			return;
+		}
+
 		const target = message.mentions.users.first();
 		if (!target) {
 			message.channel.send('Who am I supposed to kick?');

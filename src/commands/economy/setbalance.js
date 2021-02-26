@@ -1,4 +1,5 @@
 const profile = require('../../schemas/profile-schema');
+const guildProfile = require('../../schemas/guild-schema');
 const commando = require('discord.js-commando');
 const blacklisted = require('../../utils/blacklistcheck');
 const { prefix } = require('../../../config.json');
@@ -37,6 +38,12 @@ module.exports = class SetBalanceCommand extends commando.Command {
 		});
 	}
 	async run(message, { amount, user }) {
+		const guildBlacklistCheck = await guildProfile.findOne({ guildId: message.guild.id });
+		if(guildBlacklistCheck.guildBlacklisted === true) {
+			message.reply('This guild has been blacklisted');
+			return;
+		}
+
 		if (!user) {
 			user = message.author;
 		}

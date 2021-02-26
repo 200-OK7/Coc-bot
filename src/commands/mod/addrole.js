@@ -1,5 +1,6 @@
 /* eslint-disable no-shadow */
 const commando = require('discord.js-commando');
+const guildProfile = require('../../schemas/guild-schema');
 
 module.exports = class AddroleCommand extends commando.Command {
 	constructor(client) {
@@ -21,6 +22,12 @@ module.exports = class AddroleCommand extends commando.Command {
 		});
 	}
 	async run(msg, args) {
+		const guildBlacklistCheck = await guildProfile.findOne({ guildId: msg.guild.id });
+		if(guildBlacklistCheck.guildBlacklisted === true) {
+			msg.reply('This guild has been blacklisted');
+			return;
+		}
+
 		const targetUser = msg.mentions.users.first();
 
 

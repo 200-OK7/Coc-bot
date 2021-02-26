@@ -1,4 +1,5 @@
 const { MessageEmbed } = require('discord.js');
+const guildProfile = require('../../schemas/guild-schema');
 const commando = require('discord.js-commando');
 
 module.exports = class HttpCatCommand extends commando.Command {
@@ -23,6 +24,12 @@ module.exports = class HttpCatCommand extends commando.Command {
 	}
 
 	async run(message, { query }) {
+		const guildBlacklistCheck = await guildProfile.findOne({ guildId: message.guild.id });
+		if(guildBlacklistCheck.guildBlacklisted === true) {
+			message.reply('This guild has been blacklisted');
+			return;
+		}
+
 		const responseCat = `https://http.cat/${query}.jpg`;
 
 		const embed = new MessageEmbed()

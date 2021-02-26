@@ -1,5 +1,6 @@
 const commando = require('discord.js-commando');
 const fetch = require('node-fetch');
+const guildProfile = require('../../schemas/guild-schema');
 const { apiChatKey } = require('../../../config.json');
 
 module.exports = class ChatBotCommand extends commando.Command {
@@ -25,6 +26,12 @@ module.exports = class ChatBotCommand extends commando.Command {
 	}
 
 	async run(message, { query }) {
+		const guildBlacklistCheck = await guildProfile.findOne({ guildId: message.guild.id });
+		if(guildBlacklistCheck.guildBlacklisted === true) {
+			message.reply('This guild has been blacklisted');
+			return;
+		}
+
 		fetch(`${apiChatKey}uid=${message.member.id}&msg=${encodeURIComponent(query)}`)
 			.then(res => res.json())
 			.then(data => {
