@@ -1,0 +1,44 @@
+/* eslint-disable no-mixed-spaces-and-tabs */
+const commando = require('discord.js-commando');
+const { MessageEmbed } = require('discord.js');
+const food = [':sushi:', ':green_apple:', ':apple:', ':pizza:', ':bagel:', ':fries:', ':hamburger:', ':eggplant:', ':cherries', ':peach:', ':grapes:', ':taco:'];
+
+module.exports = class FeedCommand extends commando.Command {
+	constructor(client) {
+		super(client, {
+			name: 'feed',
+			group: 'pvp',
+			memberName: 'feed',
+			aliases: ['food', 'eat'],
+			description: 'Feeds a user',
+			userPermissions: [
+				'SEND_MESSAGES',
+			],
+			clientPermissions: [
+				'SEND_MESSAGES',
+			],
+			args: [{
+				key: 'user',
+				prompt: 'Who would you like to feed?',
+				type: 'user',
+			}],
+			argsType: 'single',
+			argsSingleQuotes: true,
+		});
+	}
+	async run(message, { user }) {
+
+		console.log(user.username);
+		const foodItem = food[Math.floor(Math.random() * food.length)];
+
+		const foodText = `${message.author.username} forces ${user.username} to eat ${foodItem}`;
+		const embed = new MessageEmbed()
+	        .setColor('#FF0000')
+			.setTitle(foodText);
+
+		message.channel.send(embed);
+		console.log(`Command: Feed was run by ${message.author.username}`);
+	}
+
+
+};

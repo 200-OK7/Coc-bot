@@ -1,0 +1,4 @@
+config.json
+/src/commands/requests*
+.eslintrc.json
+node_modules
