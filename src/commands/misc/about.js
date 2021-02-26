@@ -1,4 +1,5 @@
 const commando = require('discord.js-commando');
+const fetch = require('node-fetch');
 
 module.exports = class AboutCommand extends commando.Command {
 	constructor(client) {
@@ -16,14 +17,16 @@ module.exports = class AboutCommand extends commando.Command {
 		});
 	}
 
-	async run(message) {
+	async run(msg) {
+		const { message } = await fetch('https://dog.ceo/api/breeds/image/random').then(response => response.json());
+
 		const embed = {
 			'color': 15025225,
 			'footer': {
 				'text': 'Developed by 200 OK#0780',
 			},
 			'thumbnail': {
-				'url': 'https://files.200ok.space/Cat.gif',
+				'url': message,
 			},
 			'author': {
 				'name': 'About Coc Bot',
@@ -40,7 +43,7 @@ module.exports = class AboutCommand extends commando.Command {
 				},
 			],
 		};
-		message.channel.send({ embed });
+		msg.channel.send({ embed });
 	}
 
 };
