@@ -6,7 +6,7 @@ module.exports = class AboutCommand extends commando.Command {
 		super(client, {
 			name: 'about',
 			group: 'misc',
-			memberName: 'abbout',
+			memberName: 'about',
 			description: 'About the bot',
 			userPermissions: [
 				'SEND_MESSAGES',
