@@ -1,7 +1,7 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
 const commando = require('discord.js-commando');
 const { MessageEmbed } = require('discord.js');
-const food = [':sushi:', ':green_apple:', ':apple:', ':pizza:', ':bagel:', ':fries:', ':hamburger:', ':eggplant:', ':cherries', ':peach:', ':grapes:', ':taco:'];
+const food = [':sushi:', ':green_apple:', ':apple:', ':pizza:', ':bagel:', ':fries:', ':hamburger:', ':eggplant:', ':cherries:', ':peach:', ':grapes:', ':taco:', ':turtle:' ];
 
 module.exports = class FeedCommand extends commando.Command {
 	constructor(client) {
