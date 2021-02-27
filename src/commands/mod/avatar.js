@@ -10,6 +10,7 @@ module.exports = class AvatarCommand extends commando.Command {
 			memberName: 'avatar',
 			aliases: ['pfp'],
 			description: 'Get a users avatar',
+			guildOnly: true,
 			userPermissions: [
 				'SEND_MESSAGES',
 			],

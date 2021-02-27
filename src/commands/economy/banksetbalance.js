@@ -11,6 +11,7 @@ module.exports = class BankSetBalanceCommand extends commando.Command {
 			ownerOnly: true,
 			hidden: true,
 			description: 'Sets a users bank balance',
+			guildOnly: true,
 			aliases: ['setbankbal', 'bankbalset'],
 			userPermissions: [
 				'SEND_MESSAGES',

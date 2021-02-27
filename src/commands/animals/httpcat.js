@@ -9,6 +9,7 @@ module.exports = class HttpCatCommand extends commando.Command {
 			group: 'animals',
 			memberName: 'httpcat',
 			description: 'Gets a http cat',
+			guildOnly: true,
 			userPermissions: [
 				'SEND_MESSAGES',
 			],

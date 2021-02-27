@@ -10,6 +10,7 @@ module.exports = class BankDepositCommand extends commando.Command {
 			group: 'economy',
 			memberName: 'deposit',
 			description: 'Deposits some skrilla into the bank',
+			guildOnly: true,
 			aliases: ['bankdepo', 'depo', 'bankdeposit'],
 			throttling: {
 				usages: 1,

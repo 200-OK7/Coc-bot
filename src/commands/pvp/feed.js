@@ -12,6 +12,7 @@ module.exports = class FeedCommand extends commando.Command {
 			memberName: 'feed',
 			aliases: ['food', 'eat'],
 			description: 'Feeds a user',
+			guildOnly: true,
 			userPermissions: [
 				'SEND_MESSAGES',
 			],

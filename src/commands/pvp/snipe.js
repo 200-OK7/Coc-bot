@@ -12,6 +12,7 @@ module.exports = class SnipeCommand extends commando.Command {
 			memberName: 'snipe',
 			aliases: ['sniper'],
 			description: 'Snipes a user',
+			guildOnly: true,
 			userPermissions: [
 				'SEND_MESSAGES',
 			],

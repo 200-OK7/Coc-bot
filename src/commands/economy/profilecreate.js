@@ -9,6 +9,7 @@ module.exports = class ProfileCreateCommand extends commando.Command {
 			group: 'economy',
 			memberName: 'profilecreate',
 			description: 'Creates a profile in the mongoDB database',
+			guildOnly: true,
 			userPermissions: [
 				'SEND_MESSAGES',
 			],

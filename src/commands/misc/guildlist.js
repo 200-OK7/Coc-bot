@@ -7,6 +7,7 @@ module.exports = class GuildListCommand extends commando.Command {
 			group: 'misc',
 			memberName: 'guilds',
 			description: 'Lists the guilds the bot is in',
+			guildOnly: true,
 			ownerOnly: true,
 			hidden: true,
 			userPermissions: [

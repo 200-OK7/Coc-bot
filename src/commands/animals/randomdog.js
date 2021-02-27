@@ -11,6 +11,7 @@ module.exports = class RandomDogCommand extends commando.Command {
 			memberName: 'dog',
 			aliases: ['randomdog', 'randdog'],
 			description: 'Gets a random dog',
+			guildOnly: true,
 			userPermissions: [
 				'SEND_MESSAGES',
 			],

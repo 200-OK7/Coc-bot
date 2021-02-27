@@ -9,6 +9,7 @@ module.exports = class RemoveRoleCommand extends commando.Command {
 			group: 'mod',
 			memberName: 'removerole',
 			description: 'Removes a role from a user',
+			guildOnly: true,
 			aliases: ['roleremove', 'subtractrole'],
 			userPermissions: [
 				'MANAGE_ROLES',

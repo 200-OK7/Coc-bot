@@ -11,6 +11,7 @@ module.exports = class ChatBotCommand extends commando.Command {
 			memberName: 'chat',
 			aliases: ['chatbot'],
 			description: 'Have a convo with a chatbot',
+			guildOnly: true,
 			userPermissions: [
 				'SEND_MESSAGES',
 			],

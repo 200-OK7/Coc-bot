@@ -10,6 +10,7 @@ module.exports = class BankWithdrawCommand extends commando.Command {
 			group: 'economy',
 			memberName: 'withdraw',
 			description: 'Withdraws some skrilla out of your bank',
+			guildOnly: true,
 			aliases: ['bankwitdraw'],
 			userPermissions: [
 				'SEND_MESSAGES',

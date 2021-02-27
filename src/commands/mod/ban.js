@@ -8,6 +8,7 @@ module.exports = class BanCommand extends commando.Command {
 			group: 'mod',
 			memberName: 'ban',
 			description: 'Bans a user from the guild',
+			guildOnly: true,
 			aliases: ['hackban'],
 			userPermissions: [
 				'BAN_MEMBERS',

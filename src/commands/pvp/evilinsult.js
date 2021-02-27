@@ -10,6 +10,7 @@ module.exports = class InsultCommand extends commando.Command {
 			memberName: 'insult',
 			aliases: ['evilinsult'],
 			description: 'Insults someone',
+			guildOnly: true,
 			userPermissions: [
 				'SEND_MESSAGES',
 			],

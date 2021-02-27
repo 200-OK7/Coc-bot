@@ -10,6 +10,7 @@ module.exports = class SuicideCommand extends commando.Command {
 			group: 'economy',
 			memberName: 'suicide',
 			description: 'Life is no more',
+			guildOnly: true,
 			userPermissions: [
 				'SEND_MESSAGES',
 			],

@@ -9,6 +9,7 @@ module.exports = class SayCommand extends commando.Command {
 			memberName: 'say',
 			aliases: ['speak'],
 			description: 'Says what you tell it too.',
+			guildOnly: true,
 			userPermissions: [
 				'SEND_MESSAGES',
 			],

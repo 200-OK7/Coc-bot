@@ -9,6 +9,7 @@ module.exports = class AboutCommand extends commando.Command {
 			group: 'misc',
 			memberName: 'about',
 			description: 'About the bot',
+			guildOnly: true,
 			userPermissions: [
 				'SEND_MESSAGES',
 			],

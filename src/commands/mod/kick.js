@@ -9,6 +9,7 @@ module.exports = class KickCommand extends commando.Command {
 			memberName: 'kick',
 			aliases: ['boot'],
 			description: 'Kicks a user from the guild',
+			guildOnly: true,
 			userPermissions: [
 				'KICK_MEMBERS',
 			],

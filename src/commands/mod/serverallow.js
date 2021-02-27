@@ -15,6 +15,7 @@ module.exports = class ServerAllowCommand extends commando.Command {
 			aliases: ['serverallow'],
 			memberName: 'allowserver',
 			description: 'Allows a user into the Dev guild',
+			guildOnly: true,
 			userPermissions: [
 				'SEND_MESSAGES',
 			],

@@ -12,6 +12,7 @@ module.exports = class UrbanDictionaryCommand extends commando.Command {
 			memberName: 'urban',
 			aliases: ['urbandictionary', 'dictionary'],
 			description: 'Searches urban dictionary',
+			guildOnly: true,
 			userPermissions: [
 				'SEND_MESSAGES',
 			],

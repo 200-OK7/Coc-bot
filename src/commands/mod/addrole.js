@@ -9,6 +9,7 @@ module.exports = class AddroleCommand extends commando.Command {
 			group: 'mod',
 			memberName: 'addrole',
 			description: 'Adds a role to a user',
+			guildOnly: true,
 			aliases:['roleadd', 'plusrole'],
 			userPermissions: [
 				'MANAGE_ROLES',

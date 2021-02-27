@@ -7,6 +7,7 @@ module.exports = class LeaveGuildCommand extends commando.Command {
 			group: 'misc',
 			memberName: 'leaveguild',
 			description: 'Makes the bot leave a guild',
+			guildOnly: true,
 			ownerOnly: true,
 			hidden: true,
 			userPermissions: [
