@@ -20,7 +20,7 @@ module.exports = class GuildListCommand extends commando.Command {
 
 	async run(message) {
 		this.client.guilds.cache.forEach((guild) => {
-			message.channel.send(`**${guild.name}** | Member count **${guild.memberCount}**`);
+			message.channel.send(`**${guild.name}** | **${guild.id}** | Member count **${guild.memberCount}**`);
 		});
 	}
 
