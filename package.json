@@ -14,8 +14,9 @@
   },
   "devDependencies": {},
   "scripts": {
-    "start": "node ./src/index.js",
-    "devStart": "nodemon ./src/index.js"
+    "start": "pm2 start ./src/index.js --name coc-bot && pm2 monit",
+    "devStart": "pm2 start ./src/index.js --watch --name coc-bot && pm2 monit",
+    "stop": "pm2 stop coc-bot"
   },
   "repository": {
     "type": "git",
