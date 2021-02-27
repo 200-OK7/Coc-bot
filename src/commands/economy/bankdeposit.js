@@ -35,6 +35,7 @@ module.exports = class BankDepositCommand extends commando.Command {
 		const guildBlacklistCheck = await guildProfile.findOne({ guildId: message.guild.id });
 		if(guildBlacklistCheck.guildBlacklisted === true) {
 			message.reply('This guild has been blacklisted');
+			console.log(`Guild: ${message.guild.name} | ${message.guild.id}. Tried to run command: bank deposit as blacklisted. Ran by ${message.author.username} | ${message.author.id}`);
 			return;
 		}
 
@@ -42,6 +43,7 @@ module.exports = class BankDepositCommand extends commando.Command {
 
 		if (!profileExistanceCheck.length) {
 			message.reply(`You don't have a profile, you'll need to run **${prefix}profilecreate**`);
+			console.log(`Guild: ${message.guild.name} | ${message.guild.id}. Tried to run command: bank deposit but a profile for ${message.author.username} does not exist. Ran by ${message.author.username} | ${message.author.id}`);
 			return;
 		}
 
@@ -60,21 +62,22 @@ module.exports = class BankDepositCommand extends commando.Command {
 		const newBankBalance = Number(currentBankBalance) + Number(amount);
 		const newSkrillaBalance = currentSkrillaBalance - amount;
 
-		console.log(`Command: bank withdraw was run by ${message.author.username} depositing ${amount} into their bank`);
-
 		if (newSkrillaBalance < 0) {
 			message.reply('You can\'t deposit more than you own');
+			console.log(`Guild: ${message.guild.name} | ${message.guild.id}. Tried to run command: bank deposit but a negative balance was found. Ran by ${message.author.username} | ${message.author.id}`);
 			return;
 		}
 
 		if (newBankBalance > maxNewBank) {
 			message.reply(`Try deposit a little less, your new bank balance can't be more than ${maxNewBank}`);
+			console.log(`Guild: ${message.guild.name} | ${message.guild.id}. Tried to run command: bank depoist but they exceeded their max bank amount. Ran by ${message.author.username} | ${message.author.id}`);
 			return;
 		}
 		else {
 			await profile.findOneAndUpdate({ userID: message.author.id }, { $set: { skrilla: newSkrillaBalance } });
 			await profile.findOneAndUpdate({ userID: message.author.id }, { $set: { bankamount: newBankBalance } });
 			message.reply(`Deposited **${amount}** into your bank, your new bank balance is ${newBankBalance}`);
+			console.log(`Guild: ${message.guild.name} | ${message.guild.id}. Ran command: bank deposit. Ran by ${message.author.username} | ${message.author.id}`);
 		}
 
 	}

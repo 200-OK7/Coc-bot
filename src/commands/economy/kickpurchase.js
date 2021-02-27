@@ -29,6 +29,7 @@ module.exports = class PurchaseKickCommand extends commando.Command {
 		const guildBlacklistCheck = await guildProfile.findOne({ guildId: message.guild.id });
 		if(guildBlacklistCheck.guildBlacklisted === true) {
 			message.reply('This guild has been blacklisted');
+			console.log(`Guild: ${message.guild.name} | ${message.guild.id}. Tried to run command: kick purchase as blacklisted. Ran by ${message.author.username} | ${message.author.id}`);
 			return;
 		}
 
@@ -36,10 +37,9 @@ module.exports = class PurchaseKickCommand extends commando.Command {
 
 		if (!profileExistanceCheck.length) {
 			message.reply(`They don't have a profile, they'll need to run **${prefix}profilecreate**`);
+			console.log(`Guild: ${message.guild.name} | ${message.guild.id}. Tried to run command: kick purchase but a profile for ${user.username} does not exist. Ran by ${message.author.username} | ${message.author.id}`);
 			return;
 		}
-
-		console.log(`Command: kick purchase was run by ${message.author.username} trying to kick ${user.username}`);
 
 		const { guild } = message;
 
@@ -55,6 +55,7 @@ module.exports = class PurchaseKickCommand extends commando.Command {
 			}
 			else {
 				message.reply('This user is not kickable');
+				console.log(`Guild: ${message.guild.name} | ${message.guild.id}. Tried to run command: kick purchase but ${user.username} is unkickable. Ran by ${message.author.username} | ${message.author.id}`);
 				return;
 			}
 			newBalance = balance - 500000;
@@ -62,9 +63,11 @@ module.exports = class PurchaseKickCommand extends commando.Command {
 		}
 		else {
 			message.reply('You do not have enough **skrilla** for this purchase, the price is **500000**');
+			console.log(`Guild: ${message.guild.name} | ${message.guild.id}. Tried to run command: kick purchase but ${message.author.username} does not have enough currency. Ran by ${message.author.username} | ${message.author.id}`);
 			return;
 		}
 		message.reply(`Kicked ${user.username} for **500000** Skrilla.`);
+		console.log(`Guild: ${message.guild.name} | ${message.guild.id}. Ran command: kick purchase on ${user.username}. Ran by ${message.author.username} | ${message.author.id}`);
 
 	}
 };

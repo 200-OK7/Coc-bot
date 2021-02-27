@@ -22,21 +22,21 @@ module.exports = class SuicideCommand extends commando.Command {
 		const guildBlacklistCheck = await guildProfile.findOne({ guildId: message.guild.id });
 		if(guildBlacklistCheck.guildBlacklisted === true) {
 			message.reply('This guild has been blacklisted');
+			console.log(`Guild: ${message.guild.name} | ${message.guild.id}. Tried to run command: suicide as blacklisted. Ran by ${message.author.username} | ${message.author.id}`);
 			return;
 		}
-
-		console.log(`Command: suicide was run by ${message.author.username}`);
 
 		const profileExistanceCheck = await profile.find({ userID: message.author.id });
 
 		if (!profileExistanceCheck.length) {
 			message.reply(`You don't have a profile, you'll need to run **${prefix}profilecreate**`);
+			console.log(`Guild: ${message.guild.name} | ${message.guild.id}. Tried to run command: suicide but ${message.author.username} does not have a profile. Ran by ${message.author.username} | ${message.author.id}`);
 			return;
 		}
 
 		await profile.findOneAndUpdate({ userID: message.author.id }, { $set: { skrilla: 0 } });
 		message.reply(` ${message.author.username} died, their skrilla balance is now **0.**`);
-
+		console.log(`Guild: ${message.guild.name} | ${message.guild.id}. Ran command: suicide. Ran by ${message.author.username} | ${message.author.id}`);
 	}
 
 };

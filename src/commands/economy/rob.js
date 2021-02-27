@@ -35,6 +35,7 @@ module.exports = class RobCommand extends commando.Command {
 		const guildBlacklistCheck = await guildProfile.findOne({ guildId: message.guild.id });
 		if(guildBlacklistCheck.guildBlacklisted === true) {
 			message.reply('This guild has been blacklisted');
+			console.log(`Guild: ${message.guild.name} | ${message.guild.id}. Tried to run command: rob as blacklisted. Ran by ${message.author.username} | ${message.author.id}`);
 			return;
 		}
 
@@ -42,16 +43,19 @@ module.exports = class RobCommand extends commando.Command {
 
 		if (!profileExistanceCheck.length) {
 			message.reply(`They don't have a profile, they'll need to run **${prefix}profilecreate**.`);
+			console.log(`Guild: ${message.guild.name} | ${message.guild.id}. Tried to run command: rob but ${user.username} does not have a profile. Ran by ${message.author.username} | ${message.author.id}`);
 			return;
 		}
 
 		if (user == message.author) {
 			message.reply('You can\'t rob yourself.');
+			console.log(`Guild: ${message.guild.name} | ${message.guild.id}. Tried to run command: Rob but ${user.username} tried to rob themselves. Ran by ${message.author.username} | ${message.author.id}`);
 			return;
 		}
 
 		if (user.id == '805454248527659038') {
 			message.reply('Can\'t rob me (^:');
+			console.log(`Guild: ${message.guild.name} | ${message.guild.id}. Tried to run command: rob but ${user.username} tried to rob the bot. Ran by ${message.author.username} | ${message.author.id}`);
 			return;
 		}
 
@@ -64,6 +68,8 @@ module.exports = class RobCommand extends commando.Command {
 
 		if (robAmount < 0) {
 			message.reply('You can\'t rob a negative amount of money.');
+			console.log(`Guild: ${message.guild.name} | ${message.guild.id}. Tried to run command: rob but a negative rob amount was found. Ran by ${message.author.username} | ${message.author.id}`);
+
 			return;
 		}
 		const newAuthorBalance = AuthorSkrilla + robAmount;
@@ -72,14 +78,15 @@ module.exports = class RobCommand extends commando.Command {
 
 		if (skrilla <= 0) {
 			message.reply('This user is too poor.');
+			console.log(`Guild: ${message.guild.name} | ${message.guild.id}. Tried to run command: rob but ${user.username} does not have enough currency. Ran by ${message.author.username} | ${message.author.id}`);
 			return;
 		}
 		else {
 			await profile.findOneAndUpdate({ userID: user.id }, { $set: { skrilla: newBalance } });
 			await profile.findOneAndUpdate({ userID: message.author.id }, { $set: { skrilla: newAuthorBalance } });
 			message.reply(`You stole **${robAmount}** skrilla from ${user.username}.`);
+			console.log(`Guild: ${message.guild.name} | ${message.guild.id}. Ran command: rob on ${user.username} stealing ${robAmount}. Ran by ${message.author.username} | ${message.author.id}`);
 		}
-		console.log(`Command: Rob was run by ${message.author.username} robbing ${user.username} for ${robAmount}`);
 	}
 
 };

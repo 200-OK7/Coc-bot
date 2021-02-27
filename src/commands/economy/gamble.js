@@ -27,15 +27,15 @@ module.exports = class GambleCommand extends commando.Command {
 		const guildBlacklistCheck = await guildProfile.findOne({ guildId: message.guild.id });
 		if(guildBlacklistCheck.guildBlacklisted === true) {
 			message.reply('This guild has been blacklisted');
+			console.log(`Guild: ${message.guild.name} | ${message.guild.id}. Tried to run command: gamble as blacklisted. Ran by ${message.author.username} | ${message.author.id}`);
 			return;
 		}
-
-		console.log(`Command: gamble was run by ${message.author.username}`);
 
 		const profileExistanceCheck = await profile.find({ userID: message.author.id });
 
 		if (!profileExistanceCheck.length) {
 			message.reply(`You don't have a profile, you'll need to run **${prefix}profilecreate**`);
+			console.log(`Guild: ${message.guild.name} | ${message.guild.id}. Tried to run command: gamble but a profile for ${message.author.username} does not exist. Ran by ${message.author.username} | ${message.author.id}`);
 			return;
 		}
 
@@ -65,11 +65,13 @@ module.exports = class GambleCommand extends commando.Command {
 
 		if (newBalance < 0) {
 			message.reply('This is an intervention, no more gambling until you\'ve earned more money');
+			console.log(`Guild: ${message.guild.name} | ${message.guild.id}. Tried to run command: gamble but a negative balance was found. Ran by ${message.author.username} | ${message.author.id}`);
 			return;
 		}
 
 		await profile.findOneAndUpdate({ userID: message.author.id }, { $set: { skrilla: newBalance } });
 		message.reply(`${gambleMessage} **${gambleAmount}** Skrilla.`);
+		console.log(`Guild: ${message.guild.name} | ${message.guild.id}. Ran command: gamble for amount ${gambleAmount}. Ran by ${message.author.username} | ${message.author.id}`);
 
 	}
 

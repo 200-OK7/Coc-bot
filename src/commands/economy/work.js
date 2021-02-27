@@ -27,6 +27,7 @@ module.exports = class WorkCommand extends commando.Command {
 		const guildBlacklistCheck = await guildProfile.findOne({ guildId: message.guild.id });
 		if(guildBlacklistCheck.guildBlacklisted === true) {
 			message.reply('This guild has been blacklisted');
+			console.log(`Guild: ${message.guild.name} | ${message.guild.id}. Tried to run command: work as blacklisted. Ran by ${message.author.username} | ${message.author.id}`);
 			return;
 		}
 
@@ -34,6 +35,7 @@ module.exports = class WorkCommand extends commando.Command {
 
 		if (!profileExistanceCheck.length) {
 			message.reply(`You don't have a profile, you'll need to run **${prefix}profilecreate**`);
+			console.log(`Guild: ${message.guild.name} | ${message.guild.id}. Tried to run command: work but ${message.author.username} does not have a profile. Ran by ${message.author.username} | ${message.author.id}`);
 			return;
 		}
 
@@ -44,8 +46,7 @@ module.exports = class WorkCommand extends commando.Command {
 
 		await profile.findOneAndUpdate({ userID: message.author.id }, { $set: { skrilla: newBalance } });
 		message.reply(`You worked and gained **${workAmount}** Skrilla.`);
-
-		console.log(`Command: work was run by ${message.author.username}`);
+		console.log(`Guild: ${message.guild.name} | ${message.guild.id}. Ran command: work gaining ${workAmount}. Ran by ${message.author.username} | ${message.author.id}`);
 	}
 
 };

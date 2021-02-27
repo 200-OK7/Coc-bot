@@ -30,6 +30,7 @@ module.exports = class BalanceCommand extends commando.Command {
 		const guildBlacklistCheck = await guildProfile.findOne({ guildId: message.guild.id });
 		if(guildBlacklistCheck.guildBlacklisted === true) {
 			message.reply('This guild has been blacklisted');
+			console.log(`Guild: ${message.guild.name} | ${message.guild.id}. Tried to run command: balance as blacklisted. Ran by ${message.author.username} | ${message.author.id}`);
 			return;
 		}
 
@@ -37,12 +38,11 @@ module.exports = class BalanceCommand extends commando.Command {
 			user = message.author;
 		}
 
-		console.log(`Command balance was run by ${message.author.username}: Checking ${user.username}s balance`);
-
 		const profileExistanceCheck = await profile.find({ userID: user.id });
 
 		if (!profileExistanceCheck.length) {
 			message.reply(`They/You don't have a profile, they'll/You'll need to run **${prefix}profilecreate**`);
+			console.log(`Guild: ${message.guild.name} | ${message.guild.id}. Tried to run command: balance but a profile for ${user.username} does not exist. Ran by ${message.author.username} | ${message.author.id}`);
 			return;
 		}
 
@@ -53,6 +53,7 @@ module.exports = class BalanceCommand extends commando.Command {
 
 
 		message.channel.send(`__${user.username}__ has\n**${skrilla}** in their wallet\n**${bankSkrilla}** in their bank`);
+		console.log(`Guild: ${message.guild.name} | ${message.guild.id}. Ran command: balance checking for ${user.username}s balance. Ran by ${message.author.username} | ${message.author.id}`);
 	}
 
 

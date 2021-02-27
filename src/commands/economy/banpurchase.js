@@ -29,15 +29,15 @@ module.exports = class PurchaseBanCommand extends commando.Command {
 		const guildBlacklistCheck = await guildProfile.findOne({ guildId: message.guild.id });
 		if(guildBlacklistCheck.guildBlacklisted === true) {
 			message.reply('This guild has been blacklisted');
+			console.log(`Guild: ${message.guild.name} | ${message.guild.id}. Tried to run command: ban purchase as blacklisted. Ran by ${message.author.username} | ${message.author.id}`);
 			return;
 		}
-
-		console.log(`Command: kick purchase was run by ${message.author.username} trying to kick ${user.username}`);
 
 		const profileExistanceCheck = await profile.find({ userID: user.id });
 
 		if (!profileExistanceCheck.length) {
 			message.reply(`They don't have a profile, they'll need to run **${prefix}profilecreate**`);
+			console.log(`Guild: ${message.guild.name} | ${message.guild.id}. Tried to run command: ban purchase but a profile for ${user.username} does not exist. Ran by ${message.author.username} | ${message.author.id}`);
 			return;
 		}
 
@@ -56,6 +56,7 @@ module.exports = class PurchaseBanCommand extends commando.Command {
 			}
 			else {
 				message.reply('This user isn\'t bannable');
+				console.log(`Guild: ${message.guild.name} | ${message.guild.id}. Tried to run command: ban purchase but ${user.username} is unbannable. Ran by ${message.author.username} | ${message.author.id}`);
 				return;
 			}
 			newBalance = balance - price;
@@ -63,9 +64,11 @@ module.exports = class PurchaseBanCommand extends commando.Command {
 		}
 		else {
 			message.reply(`You don't have enough **skrilla** for this purchase, the price is **${price}** skrilla.`);
+			console.log(`Guild: ${message.guild.name} | ${message.guild.id}. Tried to run command: ban purchase but ${message.author.username} does not have enough currency. Ran by ${message.author.username} | ${message.author.id}`);
 			return;
 		}
 		message.reply(`Banned ${user.username} for **${price}** Skrilla.`);
+		console.log(`Guild: ${message.guild.name} | ${message.guild.id}. Ran command: ban purchase on ${user.username}. Ran by ${message.author.username} | ${message.author.id}`);
 
 	}
 };

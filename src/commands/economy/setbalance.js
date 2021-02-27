@@ -1,5 +1,4 @@
 const profile = require('../../schemas/profile-schema');
-const guildProfile = require('../../schemas/guild-schema');
 const commando = require('discord.js-commando');
 const { prefix } = require('../../../config.json');
 
@@ -37,12 +36,6 @@ module.exports = class SetBalanceCommand extends commando.Command {
 		});
 	}
 	async run(message, { amount, user }) {
-		const guildBlacklistCheck = await guildProfile.findOne({ guildId: message.guild.id });
-		if(guildBlacklistCheck.guildBlacklisted === true) {
-			message.reply('This guild has been blacklisted');
-			return;
-		}
-
 		if (!user) {
 			user = message.author;
 		}
@@ -51,12 +44,13 @@ module.exports = class SetBalanceCommand extends commando.Command {
 
 		if (!profileExistanceCheck.length) {
 			message.reply(`They don't have a profile, they'll need to run **${prefix}profilecreate**`);
+			console.log(`Guild: ${message.guild.name} | ${message.guild.id}. Tried to run command: set balance but ${user.username} does not have a profile. Ran by ${message.author.username} | ${message.author.id}`);
 			return;
 		}
 
 		await profile.findOneAndUpdate({ userID: user.id }, { $set: { skrilla: amount } });
 		message.reply(`Set the balance of ${user.username} to ${amount}.`);
-		console.log(`Command: setbalance was run by ${message.author.username} setting ${user.username}s balance to ${amount}`);
+		console.log(`Guild: ${message.guild.name} | ${message.guild.id}. Ran command: setting ${user.username}s balance to ${amount}. Ran by ${message.author.username} | ${message.author.id}`);
 	}
 
 };

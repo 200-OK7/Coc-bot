@@ -26,6 +26,7 @@ module.exports = class ProfileCreateCommand extends commando.Command {
 		const guildBlacklistCheck = await guildProfile.findOne({ guildId: message.guild.id });
 		if(guildBlacklistCheck.guildBlacklisted === true) {
 			message.reply('This guild has been blacklisted');
+			console.log(`Guild: ${message.guild.name} | ${message.guild.id}. Tried to run command: profile create as blacklisted. Ran by ${message.author.username} | ${message.author.id}`);
 			return;
 		}
 
@@ -33,6 +34,7 @@ module.exports = class ProfileCreateCommand extends commando.Command {
 
 		if (resultsearch.length) {
 			message.reply('They already have a profile.');
+			console.log(`Guild: ${message.guild.name} | ${message.guild.id}. Tried to run command: profile create but ${user.username} already has a profile. Ran by ${message.author.username} | ${message.author.id}`);
 			return;
 		}
 		else {
@@ -45,8 +47,8 @@ module.exports = class ProfileCreateCommand extends commando.Command {
 			}); userprofile.save();
 		}
 
-		console.log(`Command: Profile create was run by ${message.author.username} creating a profile for ${user.username}`);
 		message.reply(`Profile created for ${user.username}`);
+		console.log(`Guild: ${message.guild.name} | ${message.guild.id}. Ran command: profile create for ${user.username}. Ran by ${message.author.username} | ${message.author.id}`);
 	}
 
 };

@@ -31,6 +31,7 @@ module.exports = class BankWithdrawCommand extends commando.Command {
 		const guildBlacklistCheck = await guildProfile.findOne({ guildId: message.guild.id });
 		if(guildBlacklistCheck.guildBlacklisted === true) {
 			message.reply('This guild has been blacklisted');
+			console.log(`Guild: ${message.guild.name} | ${message.guild.id}. Tried to run command: bank withdraw as blacklisted. Ran by ${message.author.username} | ${message.author.id}`);
 			return;
 		}
 
@@ -38,6 +39,7 @@ module.exports = class BankWithdrawCommand extends commando.Command {
 
 		if (!profileExistanceCheck.length) {
 			message.reply(`You don't have a profile, you'll need to run **${prefix}profilecreate**`);
+			console.log(`Guild: ${message.guild.name} | ${message.guild.id}. Tried to run command: bank withdraw but a profile for ${message.author.username} does not exist. Ran by ${message.author.username} | ${message.author.id}`);
 			return;
 		}
 
@@ -52,16 +54,16 @@ module.exports = class BankWithdrawCommand extends commando.Command {
 		const newBankBalance = Number(currentBankBalance) - Number(amount);
 		const newSkrillaBalance = Number(currentSkrillaBalance) + Number(amount);
 
-		console.log(`Command: bank withdraw was run by ${message.author.username} withdrawing ${amount}`);
-
 		if (newBankBalance < 0) {
 			message.reply('You can\'t withdraw more than you own');
+			console.log(`Guild: ${message.guild.name} | ${message.guild.id}. Tried to run command: bank withdraw but a negative bank balance was found. Ran by ${message.author.username} | ${message.author.id}`);
 			return;
 		}
 
 		await profile.findOneAndUpdate({ userID: message.author.id }, { $set: { skrilla: newSkrillaBalance } });
 		await profile.findOneAndUpdate({ userID: message.author.id }, { $set: { bankamount: newBankBalance } });
 		message.reply(`Withdrew **${amount}** from your bank, your new balance is ${newSkrillaBalance}`);
+		console.log(`Guild: ${message.guild.name} | ${message.guild.id}. Ran command: bank withdraw. Ran by ${message.author.username} | ${message.author.id}`);
 
 
 	}

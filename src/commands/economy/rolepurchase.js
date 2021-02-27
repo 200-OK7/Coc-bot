@@ -28,6 +28,7 @@ module.exports = class AddroleCommand extends commando.Command {
 		const guildBlacklistCheck = await guildProfile.findOne({ guildId: message.guild.id });
 		if(guildBlacklistCheck.guildBlacklisted === true) {
 			message.reply('This guild has been blacklisted');
+			console.log(`Guild: ${message.guild.name} | ${message.guild.id}. Tried to run command: role purchase as blacklisted. Ran by ${message.author.username} | ${message.author.id}`);
 			return;
 		}
 
@@ -36,7 +37,8 @@ module.exports = class AddroleCommand extends commando.Command {
 		const profileExistanceCheck = await profile.find({ userID: targetUser.id });
 
 		if (!profileExistanceCheck.length) {
-			message.reply(`They don't have a profile, they'll need to run **${prefix}profilecreate**`);
+			message.reply(`You don't have a profile, you'll need to run **${prefix}profilecreate**`);
+			console.log(`Guild: ${message.guild.name} | ${message.guild.id}. Tried to run command: role purchase but ${message.author.username} does not have a profile. Ran by ${message.author.username} | ${message.author.id}`);
 			return;
 		}
 
@@ -52,6 +54,7 @@ module.exports = class AddroleCommand extends commando.Command {
 		});
 		if (!role) {
 			message.reply(`There is no role with this name "${roleName}`);
+			console.log(`Guild: ${message.guild.name} | ${message.guild.id}. Tried to run command: role purchase but no role with the name ${roleName} was found. Ran by ${message.author.username} | ${message.author.id}`);
 			return;
 		}
 
@@ -64,10 +67,11 @@ module.exports = class AddroleCommand extends commando.Command {
 		}
 		else {
 			message.reply(`You don't have enough skrilla for this purchase. The price is **${price}** skrilla.`);
+			console.log(`Guild: ${message.guild.name} | ${message.guild.id}. Tried to run command: role purchase but ${message.author.username} does not have enough currency. Ran by ${message.author.username} | ${message.author.id}`);
 			return;
 		}
 		message.reply(`Purchased and added role "${roleName}"`);
-		console.log(`Command: Add role was run by ${message.author.username}. ${roleName} added to ${member}`);
+		console.log(`Guild: ${message.guild.name} | ${message.guild.id}. Ran command: role purchase, adding role ${roleName}. Ran by ${message.author.username} | ${message.author.id}`);
 	}
 
 };
