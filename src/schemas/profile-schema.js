@@ -19,7 +19,6 @@ const profileSchema = mongoose.Schema({
 	username: reqString,
 	devGuildList: reqBoolean,
 	userID: reqString,
-	blacklisted: reqBoolean,
 	skrilla: reqNumber,
 	bankamount: reqNumber,
 });

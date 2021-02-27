@@ -1,7 +1,6 @@
 const profile = require('../../schemas/profile-schema');
 const guildProfile = require('../../schemas/guild-schema');
 const commando = require('discord.js-commando');
-const blacklisted = require('../../utils/blacklistcheck');
 const { prefix } = require('../../../config.json');
 
 module.exports = class WorkCommand extends commando.Command {
@@ -35,12 +34,6 @@ module.exports = class WorkCommand extends commando.Command {
 
 		if (!profileExistanceCheck.length) {
 			message.reply(`You don't have a profile, you'll need to run **${prefix}profilecreate**`);
-			return;
-		}
-
-		const blacklist = await blacklisted(message);
-		if (blacklist == true) {
-			message.reply('You\'ve been blacklisted');
 			return;
 		}
 

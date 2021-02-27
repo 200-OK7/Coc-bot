@@ -24,6 +24,7 @@ module.exports = class RandomCatCommand extends commando.Command {
 		const guildBlacklistCheck = await guildProfile.findOne({ guildId: message.guild.id });
 		if(guildBlacklistCheck.guildBlacklisted === true) {
 			message.reply('This guild has been blacklisted');
+			console.log(`Guild: ${message.guild.name} | ${message.guild.id}. Tried to run command: random cat as blacklisted. Ran by ${message.author.username} | ${message.author.id}`);
 			return;
 		}
 
@@ -36,7 +37,7 @@ module.exports = class RandomCatCommand extends commando.Command {
 
 		message.reply(embed);
 
-		console.log(`Command: Random cat was run by ${message.author.username}`);
+		console.log(`Guild: ${message.guild.name} | ${message.guild.id}. Ran command: random cat. Ran by ${message.author.username} | ${message.author.id}`);
 
 	}
 

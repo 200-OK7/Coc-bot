@@ -27,6 +27,7 @@ module.exports = class HttpCatCommand extends commando.Command {
 		const guildBlacklistCheck = await guildProfile.findOne({ guildId: message.guild.id });
 		if(guildBlacklistCheck.guildBlacklisted === true) {
 			message.reply('This guild has been blacklisted');
+			console.log(`Guild: ${message.guild.name} | ${message.guild.id}. Tried to run command: httpcat for cat ${query} as blacklisted. Ran by ${message.author.username} | ${message.author.id}`);
 			return;
 		}
 
@@ -39,7 +40,7 @@ module.exports = class HttpCatCommand extends commando.Command {
 
 		message.reply(embed);
 
-		console.log(`Command: HTTP cat was run by ${message.author.username} searching for cat ${query}`);
+		console.log(`Guild: ${message.guild.name} | ${message.guild.id}. Ran command: http cat for cat ${query}. Ran by ${message.author.username} | ${message.author.id}`);
 
 	}
 

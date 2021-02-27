@@ -24,6 +24,7 @@ module.exports = class RandomDogCommand extends commando.Command {
 		const guildBlacklistCheck = await guildProfile.findOne({ guildId: msg.guild.id });
 		if(guildBlacklistCheck.guildBlacklisted === true) {
 			msg.reply('This guild has been blacklisted');
+			console.log(`Guild: ${msg.guild.name} | ${msg.guild.id}. Tried to run command: random dog as blacklisted. Ran by ${msg.author.username} | ${msg.author.id}`);
 			return;
 		}
 
@@ -36,7 +37,7 @@ module.exports = class RandomDogCommand extends commando.Command {
 
 		msg.reply(embed);
 
-		console.log(`Command: Random dog was run by ${msg.author.username}`);
+		console.log(`Guild: ${msg.guild.name} | ${msg.guild.id}. Ran command: random dog. Ran by ${msg.author.username} | ${msg.author.id}`);
 
 	}
 

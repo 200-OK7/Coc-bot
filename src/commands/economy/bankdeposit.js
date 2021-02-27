@@ -1,7 +1,6 @@
 const profile = require('../../schemas/profile-schema');
 const guildProfile = require('../../schemas/guild-schema');
 const commando = require('discord.js-commando');
-const blacklisted = require('../../utils/blacklistcheck');
 const { prefix } = require('../../../config.json');
 
 module.exports = class BankDepositCommand extends commando.Command {
@@ -46,12 +45,6 @@ module.exports = class BankDepositCommand extends commando.Command {
 			return;
 		}
 
-		const blacklist = await blacklisted(message);
-		if (blacklist == true) {
-			message.reply('You\'ve been blacklisted');
-			return;
-		}
-
 		const profileSearch = await profile.findOne({ userID: message.author.id });
 
 		if (amount === 'max' || amount > 500) {
@@ -60,7 +53,6 @@ module.exports = class BankDepositCommand extends commando.Command {
 				amount = 500;
 			}
 		}
-
 
 		const currentSkrillaBalance = profileSearch.skrilla;
 		const currentBankBalance = profileSearch.bankamount;

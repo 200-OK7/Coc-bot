@@ -5,7 +5,6 @@ const commando = require('discord.js-commando');
 const Chance = require('chance');
 const { prefix } = require('../../../config.json');
 const chance = new Chance();
-const blacklisted = require('../../utils/blacklistcheck');
 
 module.exports = class JackpotCommand extends commando.Command {
 	constructor(client) {
@@ -42,12 +41,6 @@ module.exports = class JackpotCommand extends commando.Command {
 
 		if (!profileExistanceCheck.length) {
 			message.reply(`You don't have a profile, you'll need to run **${prefix}profilecreate**`);
-			return;
-		}
-
-		const blacklist = await blacklisted(message);
-		if (blacklist == true) {
-			message.reply('You\'ve been blacklisted');
 			return;
 		}
 

@@ -29,7 +29,6 @@ module.exports = class ProfileCreateCommand extends commando.Command {
 			return;
 		}
 
-
 		const resultsearch = await profile.find({ userID: user.id });
 
 		if (resultsearch.length) {
@@ -41,7 +40,6 @@ module.exports = class ProfileCreateCommand extends commando.Command {
 				username: user.username,
 				devGuildList: false,
 				userID: user.id,
-				blacklisted: false,
 				skrilla: 0,
 				bankamount: 0,
 			}); userprofile.save();
