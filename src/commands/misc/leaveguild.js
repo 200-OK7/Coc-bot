@@ -28,6 +28,7 @@ module.exports = class LeaveGuildCommand extends commando.Command {
 		this.client.guilds.cache.get(guild)
 			.leave()
 			.then(g => console.log(`Guild: ${message.guild.name} | ${message.guild.id}. Ran command: leave guild leaving guild ${g}. Ran by ${message.author.username} | ${message.author.id}`))
+			.then(message.reply(`Left guild ${guild}`))
 			.catch(console.error);
 	}
 
