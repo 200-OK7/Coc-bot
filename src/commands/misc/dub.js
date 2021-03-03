@@ -6,7 +6,17 @@ const dubs = ['https://cdn.discordapp.com/attachments/806486565559205918/8164713
 	'https://cdn.discordapp.com/attachments/806486565559205918/816471313245667348/20210303_004348.jpg',
 	'https://cdn.discordapp.com/attachments/806486565559205918/816471313546870854/20210303_004345.jpg',
 	'https://cdn.discordapp.com/attachments/806486565559205918/816471313719099402/20210303_004341.jpg',
-	'https://cdn.discordapp.com/attachments/806486565559205918/816471314020696094/20210303_004337.jpg'];
+	'https://cdn.discordapp.com/attachments/806486565559205918/816471314020696094/20210303_004337.jpg',
+	'https://cdn.discordapp.com/attachments/771402687312035881/816658055595819059/2Q.png',
+	'https://cdn.discordapp.com/attachments/771402687312035881/816658097170284554/yiXUJ6ah.png',
+	'https://cdn.discordapp.com/attachments/771402687312035881/816658137930268672/Z.png',
+	'https://cdn.discordapp.com/attachments/771402687312035881/816658236547006484/9k.png',
+	'https://cdn.discordapp.com/attachments/771402687312035881/816658265190170654/Z.png',
+	'https://cdn.discordapp.com/attachments/771402687312035881/816658326993502228/9k.png',
+	'https://cdn.discordapp.com/attachments/771402687312035881/816658411889885214/9k.png',
+	'https://cdn.discordapp.com/attachments/771402687312035881/816658462653022239/65d.png',
+	'https://cdn.discordapp.com/attachments/771402687312035881/816658547793854537/db4.png',
+	'https://cdn.discordapp.com/attachments/771402687312035881/816658689728970752/EX3f2C4WAAAsqZm.png'];
 const guildProfile = require('../../schemas/guild-schema');
 
 module.exports = class FeedCommand extends commando.Command {
