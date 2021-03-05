@@ -14,8 +14,8 @@
   },
   "devDependencies": {},
   "scripts": {
-    "start": "pm2 start ./src/index.js --name coc-bot && pm2 monit",
-    "devStart": "pm2 start ./src/index.js --watch --name coc-bot && pm2 monit",
+    "start": "pm2 start ./src/index.js --name coc-bot",
+    "devStart": "pm2 start ./src/index.js --watch --name coc-bot",
     "stop": "pm2 stop coc-bot"
   },
   "repository": {
